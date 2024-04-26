@@ -1,6 +1,6 @@
 # Crop Prediction Web Application
 
-
+![Index Page](https://github.com/NarendranathChakraborty/Crop-Prediction/blob/main/WhatsApp%20Image%202024-04-26%20at%2011.23.36%20PM.jpeg)
 
 This repository contains the source code for a web application that predicts the suitable crop based on input parameters such as Nitrogen, Phosphorus, Potassium, temperature, humidity, pH, and rainfall.
 
