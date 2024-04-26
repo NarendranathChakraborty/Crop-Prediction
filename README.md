@@ -23,9 +23,31 @@ This repository contains the source code for a web application that predicts the
 
 The crop prediction functionality is powered by machine learning models trained on crop data. The models are trained using historical data on various crop attributes and environmental factors. Currently, the following models are implemented:
 
-1. **Random Forest Classifier**: This model is trained using a random forest algorithm, which is an ensemble learning method for classification. It achieves an accuracy of approximately 85% on the test dataset.
+## Machine Learning Models and Accuracy
 
-2. **Support Vector Machine (SVM)**: Another model utilized is the Support Vector Machine, a supervised learning algorithm used for classification tasks. The SVM model achieves an accuracy of around 80% on the test dataset.
+The crop prediction functionality is powered by several machine learning algorithms, each offering different strengths and performance characteristics. Here's an overview of the algorithms used and their respective accuracies:
+
+### Decision Tree (Accuracy: 90%)
+
+Decision Tree is a popular algorithm for classification tasks. It works by partitioning the data into subsets based on feature values, aiming to create the purest subsets (homogeneous with respect to the target variable). Despite its simplicity, Decision Trees can capture complex relationships in the data.
+
+### Naive Bayes (Accuracy: 99.09%)
+
+Naive Bayes is a probabilistic classification algorithm based on Bayes' theorem with the assumption of independence between features. Despite its simplicity and the "naive" assumption, Naive Bayes often performs well in practice, particularly on text classification tasks.
+
+### Support Vector Machine (SVM) (Accuracy: 97.73%)
+
+Support Vector Machine is a powerful supervised learning algorithm used for classification and regression tasks. SVM finds the optimal hyperplane that best separates the classes in the feature space. It can handle both linear and non-linear data by using different kernel functions.
+
+### Logistic Regression (Accuracy: 95.23%)
+
+Logistic Regression is a widely-used statistical technique for binary classification. Despite its name, it is used for classification rather than regression. Logistic Regression models the probability of a binary outcome based on one or more predictor variables.
+
+### Random Forest (Accuracy: 99.09%)
+
+Random Forest is an ensemble learning method that constructs multiple decision trees during training and outputs the mode of the classes (classification) or mean prediction (regression) of the individual trees. It can handle high-dimensional data and is less prone to overfitting compared to individual decision trees.
+
+Each algorithm has its strengths and weaknesses, and their performance may vary depending on the specific characteristics of the dataset and the problem at hand. By employing multiple algorithms, this web application ensures robustness and reliability in crop prediction.
 
 ## Usage
 
