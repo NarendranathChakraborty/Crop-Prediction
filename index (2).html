@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://png.pngtree.com/background/20220721/original/pngtree-photographic-map-of-crop-and-wheat-field-picture-image_1698405.jpg'); /* Replace 'https://example.com/image.jpg' with your image link */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7); /* Add a semi-transparent background color to improve readability */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjusted width to account for padding */
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Prediction</h1>
+        <form id="prediction-form" action="{{ url_for('getprediction') }}" method="post">
+            <label for="N">N (Nitrogen):</label>
+            <input type="text" id="N" name="N" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 0 and 140" max="140">
+            <label for="P">P (Phosphorus):</label>
+            <input type="text" id="P" name="P" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 5 and 145" max="145">
+            <label for="K">K (Potassium):</label>
+            <input type="text" id="K" name="K" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 5 and 205" max="205">
+            <label for="temperature">Temperature:</label>
+            <input type="text" id="temperature" name="temperature" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 8.825675 and 43.675493" max="43.675493">
+            <label for="humidity">Humidity:</label>
+            <input type="text" id="humidity" name="humidity" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 14.258040 and 99.981876" max="99.981876">
+            <label for="ph">pH:</label>
+            <input type="text" id="ph" name="ph" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 3.504752 and 9.935091" max="9.935091">
+            <label for="rainfall">Rainfall:</label>
+            <input type="text" id="rainfall" name="rainfall" required pattern="\d+(\.\d+)?" title="Please enter a valid number between 20.211267 and 298.560117" max="298.560117">
+            <button type="submit">Predict Crop</button>
+        </form>
+        <div id="output">{{ output }}</div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('prediction-form').addEventListener('submit', function(event) {
+                // Prevent form submission
+                event.preventDefault();
+
+                // Get form data
+                const formData = new FormData(this);
+
+                // Send POST request to Flask server
+                fetch('/getprediction', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update DOM with prediction output
+                    document.getElementById('output').innerText = data.output || data.error || 'Error: Unknown response';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('output').innerText = 'Error: Failed to fetch prediction';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
